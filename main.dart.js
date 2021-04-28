@@ -51969,19 +51969,19 @@ n=!(n.f===0||n.r*2>n.c)}else n=!1
 if(n)m=K.an(b).x
 else{if(o<2){n=k.a
 n=n.f===0||n.r*2>n.c}else n=!1
-m=n?K.an(b).x:K.an(b).b}switch(o){case 1:l=U.lZ(m,new L.em("shadow_roll/images/dice-dark-1.png"),j,40)
+m=n?K.an(b).x:K.an(b).b}switch(o){case 1:l=U.lZ(m,new L.em("images/dice-dark-1.png"),j,40)
 break
-case 2:l=U.lZ(m,new L.em("shadow_roll/images/dice-light-2.png"),j,40)
+case 2:l=U.lZ(m,new L.em("images/dice-light-2.png"),j,40)
 break
-case 3:l=U.lZ(m,new L.em("shadow_roll/images/dice-light-3.png"),j,40)
+case 3:l=U.lZ(m,new L.em("images/dice-light-3.png"),j,40)
 break
-case 4:l=U.lZ(m,new L.em("shadow_roll/images/dice-light-4.png"),j,40)
+case 4:l=U.lZ(m,new L.em("images/dice-light-4.png"),j,40)
 break
-case 5:l=U.lZ(m,new L.em("shadow_roll/images/dice-dark-5.png"),j,40)
+case 5:l=U.lZ(m,new L.em("images/dice-dark-5.png"),j,40)
 break
-case 6:l=U.lZ(m,new L.em("shadow_roll/images/dice-dark-6.png"),j,40)
+case 6:l=U.lZ(m,new L.em("images/dice-dark-6.png"),j,40)
 break
-default:l=U.lZ(j,new L.em("shadow_roll/images/dice-light-1.png"),new D.bD("img",q),40)}g.push(l)}return T.JW(H.b([h,T.adX(g,C.rG,1)],i),C.b4,C.d9,C.ba)}}
+default:l=U.lZ(j,new L.em("images/dice-light-1.png"),new D.bD("img",q),40)}g.push(l)}return T.JW(H.b([h,T.adX(g,C.rG,1)],i),C.b4,C.d9,C.ba)}}
 E.hK.prototype={
 gl:function(a){return this.b},
 i:function(a,b){if(b>=this.b)throw H.a(P.be(b,this,null,null,null))
