@@ -1,6 +1,8 @@
 # ShadowRun DiceRoll
 
 Flutter project to roll dices for ShadowRun 5e.
+available version at https://lancerx0.github.io/shadow_roll/
+
 
 ## WIP
 
