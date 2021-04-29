@@ -19527,7 +19527,7 @@ var $async$hH=P.a5(function(a2,a3){if(a2===1){o=a3
 s=p}while(true)switch(s){case 0:a=null
 p=4
 s=7
-return P.aa(a1.cK(0,"shadow_roll/FontManifest.json"),$async$hH)
+return P.aa(a1.cK(0,"FontManifest.json"),$async$hH)
 case 7:a=a3
 p=2
 s=6
