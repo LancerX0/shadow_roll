@@ -6,8 +6,7 @@ class GlobalVariables {
   factory GlobalVariables() => _instance;
 
   //initialize variables in here
-  GlobalVariables._internal() {
-  }
+  GlobalVariables._internal() ;
 
   bool _houseRuleCountGlitch = false;
 

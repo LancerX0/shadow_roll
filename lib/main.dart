@@ -1,5 +1,5 @@
 import 'package:shadow_roll/roll_page.dart';
-import 'package:shadow_roll/stat_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shadow_roll/global.dart';
