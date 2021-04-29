@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:shadow_roll/global.dart';
 
 Image intToDice(int result,var col)
 {
@@ -20,6 +21,8 @@ Image intToDice(int result,var col)
 }
 
 class RollRow extends StatefulWidget {
+  
+  GlobalVariables glob = new GlobalVariables();
 
   final int dicePool;
   String result = "";
@@ -61,7 +64,10 @@ class RollRow extends StatefulWidget {
 class RollRowState extends State<RollRow>{
 
   bool isGlitch() {
-    return widget.hits==0 || widget.glitch*2 > widget.dicePool;
+    if (widget.glob.getHouseRuleCountGlitch)
+      return widget.hits==0 || widget.glitch > widget.hits;
+    else
+      return widget.hits==0 || widget.glitch*2 > widget.dicePool;
   }
 
   RollRowState();

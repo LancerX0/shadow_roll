@@ -7,16 +7,15 @@ class GlobalVariables {
 
   //initialize variables in here
   GlobalVariables._internal() {
-    _myVariable = 0;
   }
 
-  int _myVariable = 0;
+  bool _houseRuleCountGlitch = false;
 
   //short getter for my variable
-  int get myVariable => _myVariable;
+  bool get getHouseRuleCountGlitch => _houseRuleCountGlitch;
 
   //short setter for my variable
-  set myVariable(int value) => myVariable = value;
+  set setHouseRuleCountGlitch(bool value) => _houseRuleCountGlitch = value;
 
-  void incrementMyVariable() => _myVariable++;
+  
 }

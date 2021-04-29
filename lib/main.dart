@@ -2,6 +2,7 @@ import 'package:shadow_roll/roll_page.dart';
 import 'package:shadow_roll/stat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shadow_roll/global.dart';
 
 void main() {
   runApp(
@@ -12,9 +13,42 @@ void main() {
   );
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  GlobalVariables glob = new GlobalVariables();
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool flag = true;
+  
   @override
   Widget build(BuildContext context) {
+    final drawerHeader = UserAccountsDrawerHeader(
+      accountName: Text(
+        "UserName",
+      ),
+      accountEmail: Text(
+        "Email",
+      ),
+      currentAccountPicture: const CircleAvatar(
+        child: FlutterLogo(size: 42.0),
+      ),
+    );
+  final drawerItems = ListView(
+      children: [
+        drawerHeader,
+        SwitchListTile(
+          value: widget.glob.getHouseRuleCountGlitch,
+          title: Text(
+            "Custom Glitch Calculate",
+          ),
+          
+          onChanged: (value) => setState(() {widget.glob.setHouseRuleCountGlitch = value;}),
+        ),
+      ],
+    );
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -32,6 +66,7 @@ class HomePage extends StatelessWidget {
         length: 1,
         child: Scaffold(
           appBar: AppBar(
+            
             bottom: TabBar(
               tabs: [
                 Tab(
@@ -48,6 +83,9 @@ class HomePage extends StatelessWidget {
               RollPage(),
               //StatPage(),
             ],
+          ),
+          drawer: Drawer (
+            child: drawerItems,
           ),
         )
       )
