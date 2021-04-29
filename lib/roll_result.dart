@@ -1,30 +1,22 @@
 import 'dart:math';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shadow_roll/global.dart';
 
-Image intToDice(int result,var col)
+Image intToDice(int result,Color col)
 {
-  Image img;
-  
-  switch (result) {
-    case 1: img = new Image(image: AssetImage('images/dice-dark-1.png'),width : 40,color: col,);break;
-    case 2: img = new Image(image: AssetImage('images/dice-light-2.png'),width : 40,color: col,);break;
-    case 3: img = new Image(image: AssetImage('images/dice-light-3.png'),width : 40,color: col,);break;
-    case 4: img = new Image(image: AssetImage('images/dice-light-4.png'),width : 40,color: col,);break;
-    case 5: img = new Image(image: AssetImage('images/dice-dark-5.png'),width : 40,color: col,);break;
-    case 6: img = new Image(image: AssetImage('images/dice-dark-6.png'),width : 40,color: col,);break;
-    
-    default:
-      img = new Image(key:Key("img"),image: AssetImage('images/dice-light-1.png'),width : 40);
-  } 
-  return img;
+  String path = 'images/dice-';
+  if (col.computeLuminance() > 0.5) 
+    path += 'dark-';
+  else 
+    path += 'light-';
+  path += result.toString()+'.png';
+  return Image(image: AssetImage(path),width : 40,color: col,);
 }
 
 class RollRow extends StatefulWidget {
   
   GlobalVariables glob = new GlobalVariables();
-
+  bool exploded = false;
   final int dicePool;
   String result = "";
   List<int> rolls = [];
@@ -37,7 +29,7 @@ class RollRow extends StatefulWidget {
     if (glob.getHouseRuleCountGlitch)
       return glitch > hits;
     else
-      return glitch*2 > dicePool;
+      return glitch*2 > rolls.length;
   }
 
   bool isCriticalGlitch() {
@@ -56,13 +48,33 @@ class RollRow extends StatefulWidget {
       if(rolls[i]<2) glitch++;
       sum += rolls[i];
     }
-    result = "";
+    updateResultRow();
+  }
+
+  void updateResultRow(){
     if (isCriticalGlitch())
       result = "CRITICAL GLITCH!";
     else if (isGlitch())
       result = "GLITCH with "+hits.toString()+" hits";
     else
       result = hits.toString()+" hits";
+  }
+  void explodeDices()
+  {
+    if (exploded) return;
+    hits = 0;
+    glitch = 0;
+    sum = 0;
+    var rng = new Random();
+    for (var i = 0; i < rolls.length; i++) 
+    {
+      if (rolls[i]==6) rolls.add(rng.nextInt(6)+1);
+      if(rolls[i]>4) hits++;
+      if(rolls[i]<2) glitch++;
+      sum += rolls[i];
+    }
+    updateResultRow();
+    exploded = true;
   }
 
   @override
@@ -77,9 +89,9 @@ class RollRowState extends State<RollRow>{
 
   @override
   Widget build(BuildContext context) {
-    
     return GestureDetector(
       onTap: () => setState(() {widget.state = !widget.state;}),
+      onDoubleTap: () => setState(() {widget.explodeDices();}),
       child: Column(
       children: [
         Row(
