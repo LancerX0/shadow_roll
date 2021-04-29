@@ -26,10 +26,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final drawerHeader = UserAccountsDrawerHeader(
       accountName: Text(
-        "UserName",
+        "Roll for Your Destiny",
       ),
       accountEmail: Text(
-        "Email",
+        "Chummer",
       ),
       currentAccountPicture: const CircleAvatar(
         child: FlutterLogo(size: 42.0),

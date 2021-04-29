@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shadow_roll/global.dart';
 
@@ -31,6 +32,17 @@ class RollRow extends StatefulWidget {
   int hits = 0;
   int glitch = 0;
   int sum = 0;
+  bool state = false;
+  bool isGlitch() {
+    if (glob.getHouseRuleCountGlitch)
+      return glitch > hits;
+    else
+      return glitch*2 > dicePool;
+  }
+
+  bool isCriticalGlitch() {
+    return hits==0 && isGlitch();
+  }
 
   @override
   RollRow ({key, this.dicePool  = 1}): super(key: key) {
@@ -44,15 +56,13 @@ class RollRow extends StatefulWidget {
       if(rolls[i]<2) glitch++;
       sum += rolls[i];
     }
-    result = "SUM = "+sum.toString()+" | ";
-    if (hits == 0){
-      if (glitch > dicePool/2) result += "Critical Glitch";
-      else result += "0 Hits";
-    } 
-    else{
-      if (glitch > dicePool/2) result += hits.toString()+" hits+Glitch";
-      else result += hits.toString()+" hits";
-    }
+    result = "";
+    if (isCriticalGlitch())
+      result = "CRITICAL GLITCH!";
+    else if (isGlitch())
+      result = "GLITCH with "+hits.toString()+" hits";
+    else
+      result = hits.toString()+" hits";
   }
 
   @override
@@ -62,29 +72,24 @@ class RollRow extends StatefulWidget {
 }
 
 class RollRowState extends State<RollRow>{
-
-  bool isGlitch() {
-    if (widget.glob.getHouseRuleCountGlitch)
-      return widget.hits==0 || widget.glitch > widget.hits;
-    else
-      return widget.hits==0 || widget.glitch*2 > widget.dicePool;
-  }
-
+  
   RollRowState();
 
   @override
   Widget build(BuildContext context) {
     
-    return Column(
+    return GestureDetector(
+      onTap: () => setState(() {widget.state = !widget.state;}),
+      child: Column(
       children: [
         Row(
-          children: [
+          children: widget.state?[
               Text(' '),
               Text('Sum: ${widget.sum}'),
               Text('Hits: ${widget.hits}'),
               Text('Glitch: ${widget.glitch}'),
               Text(' '), 
-          ],
+          ]:[Text(' '), Text(widget.result), Text(' '), ],
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ),
         Wrap(
@@ -93,14 +98,15 @@ class RollRowState extends State<RollRow>{
             children: [
               for (var res in widget.rolls) 
                 intToDice(res,
-                  (res>4 && !isGlitch())?
+                  (res>4 && !widget.isGlitch())?
                     Theme.of(context).accentColor:
-                  (res<2 &&  isGlitch())?
+                  (res<2 && widget.isGlitch())?
                     Theme.of(context).accentColor:
                     Theme.of(context).primaryColor),
             ],
         )
       ],
+    ),
     );
   } 
 }
