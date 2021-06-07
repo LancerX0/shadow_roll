@@ -27,6 +27,7 @@
   <link rel="icon" type="image/png" href="shadow_roll/favicon.png"/>
 
   <title>ShadowRun Roll</title>
+  <title>shadow_roll</title>
   <link rel="manifest" href="shadow_roll/manifest.json">
 </head>
 <body>
@@ -36,7 +37,6 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('flutter-first-frame', function () {
-        navigator.serviceWorker.register('shadow_roll/flutter_service_worker.js?v=1152561060');
       });
     }
   </script>
